@@ -1,13 +1,11 @@
 <template>
   <div>
     <div class="product-container">
-      <div v-for="(row, index) in productRows" :key="index" class="product-row">
-        <div v-for="item in row" :key="item.id" class="product-item">
-          <img :src="item.image" class="product-image" @click="detail(item)" />
-          <div class="product-details">
-            <span class="product-name">{{ item.title }}</span>
-            <span class="product-price">{{ item.price }}</span>
-          </div>
+      <div v-for="(item, index) in items" :key="index" class="product-item">
+        <img :src="item.url" class="product-image" @click="detail(item)" />
+        <div class="product-details">
+          <span class="product-name">{{ item.title }}</span>
+          <span class="product-price">{{ item.price }}</span>
         </div>
       </div>
     </div>
@@ -18,7 +16,7 @@
         {{ pageNumber }}
       </span>
       <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-      <span class="total-items">共 {{ items.length }} 条</span>
+      <span class="total-items">共 {{ totalItems }} 条</span>
     </div>
   </div>
 </template>
@@ -29,22 +27,29 @@ import axios from "axios";
 export default {
   data() {
     return {
-      items: [], // 定义一个空数组作为初始值
+      items: [],
       currentPage: 1,
-      itemsPerPage: 8, // 每页显示八个商品
+      itemsPerPage: 8,
+      totalItems: 0,
     };
   },
   mounted() {
     this.fetchData();
   },
+
   methods: {
+    
     fetchData() {
+      const pageNum = this.currentPage;
+      const pageSize = this.itemsPerPage;
+      const token = localStorage.getItem("token");
       const config = {
         method: "get",
-        url: "http://127.0.0.1:4523/m1/3573397-0-default/staff/dish/all",
+        url: "http://127.0.0.1:4523/m1/4275135-0-default/item/page?pageNum=${pageNum}&pageSize=${pageSize}",
         headers: {
-          token:
-            "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoxLCJwaG9uZSI6IjE5ODI5NjY5MzUwIiwibmFtZSI6Im1pem9yZSIsImlkIjoxLCJleHAiOjE2OTkyNDkzOTR9.ph5wDGEcHrina_hFthrER_1noKl_ifopEeOFZZPDQx0",
+          Authorization: `Bearer ${token}`,
+          // token:
+          //   "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoxLCJwaG9uZSI6IjE5ODI5NjY5MzUwIiwibmFtZSI6Im1pem9yZSIsImlkIjoxLCJleHAiOjE2OTkyNDkzOTR9.ph5wDGEcHrina_hFthrER_1noKl_ifopEeOFZZPDQx0",
         },
       };
 
@@ -72,21 +77,8 @@ export default {
     },
   },
   computed: {
-    paginatedItems() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      return this.items.slice(startIndex, endIndex);
-    },
     totalPages() {
-      return Math.ceil(this.items.length / this.itemsPerPage);
-    },
-    productRows() {
-      const paginatedItems = this.paginatedItems;
-      const rows = [];
-      for (let i = 0; i < paginatedItems.length; i += 4) {
-        rows.push(paginatedItems.slice(i, i + 4));
-      }
-      return rows;
+      return Math.ceil(this.totalItems / this.itemsPerPage);
     },
     displayedPageNumbers() {
       const totalPages = this.totalPages;
@@ -112,12 +104,8 @@ export default {
   padding: 0 1rem; 
 }
 
-.product-row {
-  display: flex;
-  margin-bottom: 1.25rem; 
-}
-
 .product-item {
+  display: inline-block;
   width: 25%; 
   margin-right: 1.25rem; 
   margin-bottom: 1.25rem; 

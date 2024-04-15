@@ -1,15 +1,15 @@
 <template>
     <div class="mt-30 flex-col group_2 ">
         <div class="flex-col self-end group_9">
-            <div class="flex-col justify-start items-end relative group_10">
+            <div class="flex-row justify-start items-end relative ">
                 <img
                     class="image_6 image_18"
-                    src="https://ide.code.fun/api/image?token=6619312a95547500119584b6&name=7052b504983b49b902ff7191e650f2c9.png"
+                    src="/public/image/yx1.png"
                 />
                 <img
                     class="image_4 pos_4"
-                    src="https://ide.code.fun/api/image?token=6619312a95547500119584b6&name=33561795e29ea9fa1b0603cd1a671070.png"
-                />
+                    src="/public/image/yx2.png"
+                />              
             </div>
             <span class="mt-10 font_5 text_21">
                 Shop Easy, Experience the Future with EasyBuy.
@@ -70,13 +70,13 @@ body * {
   margin-top: 1.88rem;
 } 
 .image_6 {
-  width: 11.88rem;
-  height: 1.81rem;
-  margin-left: 10rem;
-} 
-.image_4 {
   width: 4.5rem;
   height: 3.44rem;
+  margin-left: 11rem;
+} 
+.image_4 {
+  width: 11.88rem;
+  height: 1.81rem;
 }
 .group_2 {
   padding-left: 2.63rem;
@@ -92,11 +92,12 @@ body * {
   } 
  .image_18 {
   margin-right: 0.53rem;
+  bottom:auto;
   } 
 .pos_4 {
   position: absolute;
-  left: 10.88rem;
-  bottom: 0;
+  right:0.5rem;
+  bottom: 0.65rem;
 }
 .font_5 {
   font-size: 1.03rem;
