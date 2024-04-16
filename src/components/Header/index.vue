@@ -4,11 +4,11 @@
         <div class="dropdown">
             <img
               class="image_2 dropbth"
-              src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=d1a4b4c8ad135502f3c9e9b80d02d3a3.png"
+              src="/public/image/s6.png"
             />
             <img
               class="image_3 ml-25"
-              src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=58fcddf2e60cd6781c24cba70a797e35.png"
+              src="/public/image/s8.png"
             />
             <div class="dropdown-content">
               <a href="#">Consumer Customer Service</a>
@@ -18,7 +18,7 @@
         <a href="center">
           <img
             class="image ml-25"
-            src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=15febf484eddb20a04f19d54ccf326fc.png"
+            src="/public/image/s7.png"
           />
         </a>              
       </div>
@@ -27,29 +27,29 @@
           <div class="flex-col justify-start items-center relative group">
             <img
               class="image_6"
-              src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=7052b504983b49b902ff7191e650f2c9.png"
+              src="/public/image/s2.png"
             />
             <img
               class="image_4 pos"
-              src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=33561795e29ea9fa1b0603cd1a671070.png"
+              src="/public/image/s1.png"
             />
           </div>
           <div class="flex-row section">
             <input type="text" class="section3" placeholder="Enter the product you are looking for">
             <img
               class="self-center image_8 ml-196"
-              src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=f7d25b35d8d3b22730d65288d7a95e99.png"
+              src="/public/image/s3.png"
             />
           </div>
           <div class="flex-row section_2">
             <a href="shopping car">
               <img
                 class="self-center image_5"
-                src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=2200a94c0bb03c98972394f472ec922b.png"
+                src="/public/image/s4.png"
               />
               <img
                 class="self-start image_9 ml-13"
-                src="https://ide.code.fun/api/image?token=661a4275955475001195a123&name=810ef0ecf447d2a0d966efba65f2b915.png"
+                src="/public/image/s5.png"
               />
             </a>           
           </div>

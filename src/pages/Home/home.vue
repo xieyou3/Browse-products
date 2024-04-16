@@ -3,7 +3,7 @@
     <div class="product-container">
       <div v-for="(item, index) in items" :key="index" class="product-item">
         <img :src="item.url" class="product-image" @click="detail(item)" />
-        <div class="product-details">
+        <div class="product-details flex-col">
           <span class="product-name">{{ item.title }}</span>
           <span class="product-price">{{ item.price }}</span>
         </div>
@@ -16,7 +16,7 @@
         {{ pageNumber }}
       </span>
       <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-      <span class="total-items">共 {{ totalItems }} 条</span>
+      <span class="total-items">Total Items: {{ total }}</span>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
       items: [],
       currentPage: 1,
       itemsPerPage: 8,
-      totalItems: 0,
+      total: 0, 
     };
   },
   mounted() {
@@ -38,24 +38,22 @@ export default {
   },
 
   methods: {
-    
     fetchData() {
       const pageNum = this.currentPage;
       const pageSize = this.itemsPerPage;
       const token = localStorage.getItem("token");
       const config = {
         method: "get",
-        url: "http://127.0.0.1:4523/m1/4275135-0-default/item/page?pageNum=${pageNum}&pageSize=${pageSize}",
+        url: `http://127.0.0.1:4523/m1/4275135-0-default/item/page?pageNum=${pageNum}&pageSize=${pageSize}`,
         headers: {
           Authorization: `Bearer ${token}`,
-          // token:
-          //   "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoxLCJwaG9uZSI6IjE5ODI5NjY5MzUwIiwibmFtZSI6Im1pem9yZSIsImlkIjoxLCJleHAiOjE2OTkyNDkzOTR9.ph5wDGEcHrina_hFthrER_1noKl_ifopEeOFZZPDQx0",
         },
       };
 
       axios(config)
         .then((response) => {
-          this.items = response.data.data;
+          this.items = response.data.data.records;
+          this.total = response.data.data.total; 
         })
         .catch((error) => {
           console.log(error);
@@ -63,14 +61,17 @@ export default {
     },
     nextPage() {
       this.currentPage++;
+      this.fetchData(); // 每次翻页都重新获取数据
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
+        this.fetchData(); 
       }
     },
     goToPage(pageNumber) {
       this.currentPage = pageNumber;
+      this.fetchData(); 
     },
     detail(item) {
       this.$router.push({ path: "/detail/" + item.id });
@@ -78,7 +79,7 @@ export default {
   },
   computed: {
     totalPages() {
-      return Math.ceil(this.totalItems / this.itemsPerPage);
+      return Math.ceil(this.total / this.itemsPerPage);
     },
     displayedPageNumbers() {
       const totalPages = this.totalPages;
@@ -145,4 +146,13 @@ export default {
   display: inline-block; 
   margin-left: 0.625rem; 
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+} 
 </style>
