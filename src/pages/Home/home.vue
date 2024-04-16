@@ -103,11 +103,12 @@ export default {
 <style scoped>
 .product-container {
   padding: 0 1rem; 
+  margin-left:2.2rem;
 }
 
 .product-item {
   display: inline-block;
-  width: 25%; 
+  width: 23%; 
   margin-right: 1.25rem; 
   margin-bottom: 1.25rem; 
   box-sizing: border-box;
