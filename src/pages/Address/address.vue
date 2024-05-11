@@ -36,10 +36,10 @@
           <div>
             <span class="font_3">{{ item.addrUsername }}</span>
             <span class="font_4">{{ item.addrPhone }}</span>
-            <span>zhangsan</span>
+            <!-- <span>zhangsan</span> -->
           </div>
         </div>
-        <img class="image_2" src="/public/image/y1.png" />
+        <img @click="deleteAdd(item)" class="image_2" src="/public/image/y1.png" />
       </div>
     </div>
 
@@ -71,9 +71,12 @@ export default {
     fetchData() {
       const token = localStorage.getItem("token");
       console.log(token);
+      const decodedToken = parseJwt(token); // 解析令牌
+      const userId = decodedToken.userId; // 提取用户ID
+      console.log("User ID:", userId);
       const config = {
         method: "get",
-        url: `http://127.0.0.1:4523/m1/4275135-0-default/address/search?userId=<userId>`,
+        url: `http://127.0.0.1:4523/m1/4275135-0-default/address/search?userId=${userId}`,
         headers: {
           token: `${token}`,
           // Authorization: `Bearer ${token}`,
@@ -82,7 +85,7 @@ export default {
 
       axios(config)
         .then((response) => {
-          this.items = response;
+          this.items = response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -95,9 +98,42 @@ export default {
 
     handleSubmit(){
       this.$router.push({path:"/addnew"});
+    },
+
+    deleteAdd(item){
+      item.deleted=1;
+      this.updateItem(item);
+    },
+
+    updateItem(item){
+      const token = localStorage.getItem("token");
+      const config = {
+        method: "put", 
+        url:`http://127.0.0.1:4523/m1/4275135-0-default/user/addAdd?adddes=${item.location}&addname=${item.consignee}&addphone=${item.phonenumber}`,
+        headers: {
+          token: `${token}`,
+        },
+        data: item, 
+      };
+
+      axios(config)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error('Error updating item:', error);
+        });
     }
   },
 };
+// 解析JWT令牌的函数
+function parseJwt(token) {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+}
 </script>
         
 <style scoped lang="css">
