@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-30 flex-col group_2 ">
+    <div class="mt-30 flex-col group_2">
         <div class="flex-col self-end group_9">
             <div class="flex-row justify-start items-end relative ">
                 <img

@@ -38,7 +38,7 @@ export default {
       const config = {
         url: `http://127.0.0.1:4523/m1/4275135-0-default/item/${productId}`,
         headers: {
-          Authorization: `Bearer${token}`,
+          token: `${token}`,
         },
       };
 

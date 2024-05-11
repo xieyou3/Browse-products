@@ -1,9 +1,18 @@
 <template>
 <div class="flex-col page">
-      <div class="flex-row justify-end items-center">
+      <div class="flex-row justify-end items-center lh">
+        <img
+              @click="address"
+              class="image_10"
+              src="/public/image/s9.png"
+        />
+        <img
+              class="image_10"
+              src="/public/image/s10.png"
+        />
         <div class="dropdown">
             <img
-              class="image_2 dropbth"
+              class="dropbth"
               src="/public/image/s6.png"
             />
             <img
@@ -60,8 +69,13 @@
 
 <script>
 export default{
-    name: '',
+  methods:{
+    address(){
+      this.$router.push({path:"/address"});
+    }
+  }
 }
+
 </script>
 
 <style scoped lang="css">
@@ -154,6 +168,9 @@ body * {
   width: 4.5rem;
   height: 3.44rem;
 }
+.image_10 {
+  margin-right: 3rem;
+}
 .pos {
   position: absolute;
   left: 0;
@@ -240,5 +257,8 @@ body * {
   background-color: #3e8e41;
 }
 
+.lh{
+  line-height: 0;
+}
 </style>
 
