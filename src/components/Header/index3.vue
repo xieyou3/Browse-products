@@ -64,7 +64,7 @@ body * {
   margin-left:54.85px ;
 }
 .image_3{
-  width: 414px;
+  width: 273px;
   height: 37px;
   margin-left:300px;
   margin-top:11px;

@@ -51,7 +51,7 @@
             />
           </div>
           <div class="flex-row section_2">
-            <a href="shopping car">
+            <a href="/shoppingcart">
               <img
                 class="self-center image_5"
                 src="/public/image/s4.png"

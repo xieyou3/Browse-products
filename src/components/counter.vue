@@ -9,20 +9,39 @@
 
 <script>
 export default {
+  props: {
+    initialQuantity: {
+      type: Number,
+      default: 1 
+    }
+  },
   data() {
     return {
       num: 1,
     };
   },
+  created() {
+    this.num = this.initialQuantity;
+  },
+  watch: {
+    initialQuantity(newVal) {
+      this.num = newVal;
+    },
+    num(newVal) {
+      this.$emit('update:quantity', newVal);
+    }
+  },
   methods: {
     inNum() {
       this.num++;
+      this.$emit('update:quantity', this.num); // 发送更新事件
     },
     deNum() {
       if (this.num > 1) {
         this.num--;
+        this.$emit('update:quantity', this.num); // 发送更新事件
       }
-    },
+    }
   },
 };
 </script>
