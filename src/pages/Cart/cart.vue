@@ -8,7 +8,7 @@
           <div class="items">
             <input type="checkbox" @change="updateSelection(item, $event)" />
             <img :src="item.img" :alt="item.title" class="item-image" />
-            <div class="infor">
+            <div class="infor">     
               <span class="font_2">{{ item.description }}</span>
               <div class="group_2">
                 <span class="font_3">￥{{ item.price }}</span>
@@ -20,9 +20,11 @@
                 ></Counter>
               </div>
             </div>
+            <img src="/public/image/y1.png" class="image_5" @click="removeCart(item)">
           </div>
         </div>
       </div>
+      <div class="group_3"></div>
     </div>
   </div>
 </template>
@@ -86,7 +88,24 @@ export default {
       }
       console.log(this.result);
     },
-  },
+    removeCart(item){
+        const token = localStorage.getItem("token");
+      const config = {
+        method: "post",
+        url: `http://127.0.0.1:4523/m1/4275135-0-default/cart/remove/${item.itemId}`,
+        headers: {
+          token: `${token}`,
+        },
+      };
+      axios(config)
+        .then((response) => {
+          this.data = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    },
 };
 </script>
 
@@ -104,10 +123,23 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.group_3 {
+  height: 5rem;
+background-color:white ;
+position: fixed;
+		width: 100%;
+			right:0px;
+	bottom:3rem;
+}
 .image_4 {
   width: 140px;
   height: 33px;
   margin-top: 50px;
+}
+.image_5 {
+  width: 30px;
+  height: 30px;
+  margin-left: 3rem;;
 }
 .store {
   display: flex;
@@ -157,6 +189,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin-left: 1.5rem;
+  width: 80%;
 }
 .item-image {
   width: 8rem;

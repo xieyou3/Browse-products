@@ -68,8 +68,9 @@ export default {
         url: `http://127.0.0.1:4523/m1/4275135-0-default/cart/add`,
         headers: {
           token: `${token}`,
-          data: formData,
+          
         },
+        data: formData,
       };
 
       axios(config)
