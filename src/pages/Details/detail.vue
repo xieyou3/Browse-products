@@ -9,9 +9,10 @@
       <p class="product-price">price:{{ product.price }}</p>
       <p class="product-price">description:{{ product.description }}</p>
       <p class="product-price">stock:{{ product.stock }}</p>
+      <Counter ref="counter" />
       <div class="buttons">
         <button @click="buyNow(product)">Pay</button>
-        <button @click="addToCart">Add to Shopping cart</button>
+        <button @click="addToCart(product)">Add to Shopping cart</button>
       </div>
     </div>
   </div>
@@ -19,7 +20,7 @@
   
   <script>
 import axios from "axios";
-
+import Counter from "@/components/counter.vue";
 export default {
   data() {
     return {
@@ -51,13 +52,37 @@ export default {
         });
     },
 
-    buyNow(product) {
+    buyNow(productId) {
       console.log("立即购买");
-      this.$route.push({path:"/付款页路由"+product}); //product为传给付款页的数据，根据情况改成id/product
+      this.$route.push({ path: "/付款页路由" + productId }); //product为传给付款页的数据，根据情况改成id/product
     },
-    addToCart() {
+    addToCart(productId) {
+      const token = localStorage.getItem("token");
       console.log("加入购物车");
+      const formData = {
+        itemId: productId,
+        quantity: this.num,
+      };
+      const config = {
+        methods: "post",
+        url: `http://127.0.0.1:4523/m1/4275135-0-default/cart/add`,
+        headers: {
+          token: `${token}`,
+          data: formData,
+        },
+      };
+
+      axios(config)
+        .then((response) => {
+          this.product = response.data.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
+        });
     },
+  },
+  components: {
+    Counter,
   },
 };
 </script>
@@ -70,7 +95,7 @@ export default {
 
 .product-image {
   flex: 1;
-  margin-left:10rem;
+  margin-left: 10rem;
 }
 
 .product-image img {
@@ -80,7 +105,7 @@ export default {
 
 .product-info {
   flex: 1;
-  margin-right:10rem;
+  margin-right: 10rem;
   /* padding: 0 20px; */
 }
 
